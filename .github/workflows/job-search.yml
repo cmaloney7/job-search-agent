@@ -8,6 +8,7 @@ on:
 
 permissions:
   contents: write
+  id-token: write
 
 jobs:
   search:
@@ -30,7 +31,7 @@ jobs:
             Run /search to find new job postings, then run /render to update
             the dashboard. Use the TAVILY_API_KEY environment variable for
             Tavily searches.
-          allowed_tools: "Bash,Read,Write,Edit"
+          claude_args: "--allowedTools Bash,Read,Write,Edit"
         env:
           TAVILY_API_KEY: ${{ secrets.TAVILY_API_KEY }}
 
