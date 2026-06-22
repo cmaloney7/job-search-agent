@@ -1,0 +1,29 @@
+#!/bin/bash
+
+# If any files that feed README.md are staged, regenerate it before committing.
+
+WATCHED="criteria\.md profile\.md requirements\.txt CLAUDE\.md"
+
+staged=$(git diff --cached --name-only)
+
+needs_update=false
+for pattern in $WATCHED; do
+  if echo "$staged" | grep -qE "$pattern"; then
+    needs_update=true
+    break
+  fi
+done
+
+if [ "$needs_update" = true ]; then
+  echo "[pre-commit] Project files changed — updating README.md..."
+  CLAUDE=/Users/cmolloy/.nvm/versions/node/v18.20.0/bin/claude
+  cd "$(git rev-parse --show-toplevel)"
+  if ! "$CLAUDE" -p "/update-readme" --allowedTools "Write(./README.md),Edit(./README.md),Read(*)"; then
+    echo "[pre-commit] ERROR: update-readme skill failed. Commit aborted."
+    exit 1
+  fi
+  git add README.md
+  echo "[pre-commit] README.md updated and staged."
+fi
+
+exit 0

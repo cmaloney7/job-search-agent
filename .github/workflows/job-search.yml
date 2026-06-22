@@ -1,0 +1,43 @@
+name: Job search agent
+
+on:
+  schedule:
+    - cron: "0 14 * * *"
+    - cron: "0 2 * * *"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  search:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run job search agent
+        uses: anthropics/claude-code-action@v1
+        with:
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          prompt: |
+            Run /search to find new job postings, then run /render to update
+            the dashboard. Use the TAVILY_API_KEY environment variable for
+            Tavily searches.
+          allowed_tools: "Bash,Read,Write,Edit"
+        env:
+          TAVILY_API_KEY: ${{ secrets.TAVILY_API_KEY }}
+
+      - name: Commit results
+        run: |
+          git config user.name "job-search-agent"
+          git config user.email "actions@github.com"
+          git add matches.db docs/index.html
+          git diff --cached --quiet || git commit -m "Agent run: $(date -u +'%Y-%m-%d %H:%M UTC')"
+          git push

@@ -1,0 +1,9 @@
+.env
+venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.DS_Store
+
+# Exclude local db during development; remove this line before first CI run
+matches.db
