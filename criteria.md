@@ -18,6 +18,22 @@
 - Seattle WA
 - San Diego CA
 
+## Job boards
+
+Restrict Tavily searches to these domains. This prevents job board category pages
+(ZipRecruiter, Built In, etc.) from filling results instead of individual postings.
+Remove a domain or comment it out (prefix with `#`) to stop searching it.
+
+- greenhouse.io
+- lever.co
+- myworkdayjobs.com
+- jobs.ashbyhq.com
+- smartrecruiters.com
+- icims.com
+- linkedin.com
+- weworkremotely.com
+- wellfound.com
+
 ## Query suffix
 
 Append this to every title + location query: `software automation job careers remote`

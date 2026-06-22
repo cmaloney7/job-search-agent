@@ -3,7 +3,8 @@ Run the autonomous job search pipeline.
 ## Setup
 
 Read `criteria.md` to load: titles, locations, query suffix, score threshold,
-max posting age, hard disqualifiers, positive signals, negative signals.
+max posting age, hard disqualifiers, positive signals, negative signals, and
+job boards (include_domains). Ignore lines beginning with `#` in the job boards list.
 
 Read `profile.md` to understand the candidate in full.
 
@@ -16,7 +17,18 @@ criteria.md. Example: "QA Engineering Manager Remote software automation job car
 
 ### 2. For each query
 
-Run: `python search_helper.py "<query>"`
+If `criteria.md` includes a job boards list, pass the active domains (non-commented lines)
+as a comma-separated `--include-domains` argument:
+
+```
+python search_helper.py "<query>" --include-domains "greenhouse.io,lever.co,..."
+```
+
+If no job boards are listed, omit the flag:
+
+```
+python search_helper.py "<query>"
+```
 
 This returns a JSON array. Each item has: url, title, content (snippet), published_date.
 
