@@ -6,22 +6,39 @@
 <style>
   body { font-family: -apple-system, sans-serif; max-width: 1000px; margin: 40px auto; padding: 0 20px; color: #222; }
   h1 { font-size: 20px; font-weight: 500; }
-  .meta { color: #666; font-size: 13px; margin-bottom: 24px; }
+  .meta { color: #666; font-size: 13px; margin-bottom: 16px; }
+  .criteria { background: #f7f7f7; border: 1px solid #e5e5e5; border-radius: 6px; padding: 12px 20px; margin-bottom: 28px; font-size: 13px; color: #444; }
+  .criteria > summary { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: #888; cursor: pointer; user-select: none; padding: 4px 0; }
+  .criteria > summary:hover { color: #444; }
+  .criteria[open] > summary { margin-bottom: 12px; }
+  .criteria-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 16px; }
+  .criteria-section { }
+  .criteria-label { font-weight: 600; color: #333; font-size: 12px; text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 6px; }
+  .criteria-section ul { margin: 0; padding: 0 0 0 16px; }
+  .criteria-section li { margin-bottom: 2px; }
+  .tag { display: inline-block; background: #fff; border: 1px solid #d5d5d5; border-radius: 4px; padding: 2px 7px; font-size: 12px; color: #444; margin: 2px 2px 2px 0; }
+  .tag-warn { border-color: #f0c0a0; background: #fdf5ef; color: #884400; }
   table { width: 100%; border-collapse: collapse; font-size: 14px; }
   th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid #e5e5e5; vertical-align: top; }
   th { color: #666; font-weight: 500; font-size: 12px; text-transform: uppercase; }
   .score { font-weight: 600; }
   .score-high { color: #0f6e56; }
   .score-mid { color: #854f0b; }
+  .score-low { color: #999; }
   a { color: #185fa5; text-decoration: none; }
   a:hover { text-decoration: underline; }
   .empty { color: #888; padding: 40px 0; text-align: center; }
   .summary { color: #555; font-size: 13px; padding: 4px 12px 12px; border-bottom: 1px solid #e5e5e5; }
+  details { margin-top: 32px; }
+  summary { cursor: pointer; font-size: 13px; color: #666; padding: 8px 0; user-select: none; }
+  summary:hover { color: #333; }
+  details table { margin-top: 12px; opacity: 0.8; }
 </style>
 </head>
 <body>
   <h1>Job search agent -- matches</h1>
-  <div class="meta">Last updated 2026-06-22 05:35 UTC &middot; 0 matches at or above score 50</div>
+  <div class="meta">Last updated 2026-06-22 19:49 UTC &middot; 0 matches at or above score 50</div>
+  <details class="criteria"><summary>Search criteria</summary><div class="criteria-grid"><div class="criteria-section"><div class="criteria-label">Titles searched</div><ul><li>QA Engineering Manager</li><li>Manager Quality Engineering</li><li>Senior Manager Test Engineering</li><li>Manager Engineering QA</li><li>Director of Quality Engineering</li><li>Head of QA</li><li>QA Engineer III</li><li>Senior QA Engineer</li><li>Staff QA Automation Engineer</li></ul></div><div class="criteria-section"><div class="criteria-label">Locations</div><span class="tag">Remote</span><span class="tag">Seattle WA</span><span class="tag">San Diego CA</span><span class="tag">Charleston SC</span></div><div class="criteria-section"><div class="criteria-label">Job boards</div><span class="tag">greenhouse.io</span><span class="tag">lever.co</span><span class="tag">myworkdayjobs.com</span><span class="tag">jobs.ashbyhq.com</span><span class="tag">smartrecruiters.com</span><span class="tag">icims.com</span><span class="tag">linkedin.com</span><span class="tag">weworkremotely.com</span><span class="tag">wellfound.com</span></div><div class="criteria-section"><div class="criteria-label">Compensation</div>Floor: $160,000<br>Target: up to $235,000</div><div class="criteria-section"><div class="criteria-label">Filters</div>Min score to display: 50<br>Max posting age: 30 days. Reduce score by 10-15 points for postings older than this.</div></div></details>
   <div class="empty">No matches yet -- check back after the next scheduled run.</div>
 </body>
 </html>

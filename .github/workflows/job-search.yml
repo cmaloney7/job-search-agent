@@ -22,16 +22,13 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
+      - name: Install Claude Code
+        run: npm install -g @anthropic-ai/claude-code
+
       - name: Run job search agent
-        uses: anthropics/claude-code-action@v1
-        with:
-          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
-          prompt: |
-            Run /search to find new job postings, then run /render to update
-            the dashboard. Use the TAVILY_API_KEY environment variable for
-            Tavily searches.
-          claude_args: "--allowedTools Bash,Read,Write,Edit"
+        run: claude -p "Run /search to find new job postings, then run /render to update the dashboard." --allowedTools "Bash,Read,Write,Edit"
         env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           TAVILY_API_KEY: ${{ secrets.TAVILY_API_KEY }}
 
       - name: Commit results
