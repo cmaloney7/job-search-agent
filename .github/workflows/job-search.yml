@@ -38,3 +38,33 @@ jobs:
           git add matches.db docs/index.html
           git diff --cached --quiet || git commit -m "Agent run: $(date -u +'%Y-%m-%d %H:%M UTC')"
           git push
+
+      - name: Send dashboard notification
+        env:
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+          RUN_NUMBER: ${{ github.run_number }}
+          RUN_URL: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          python3 << 'EOF'
+          import json, os, urllib.request
+          payload = json.dumps({
+              "from": "Job Search Agent <onboarding@resend.dev>",
+              "to": ["cdmolloy@gmail.com"],
+              "subject": "Job search run complete — run #" + os.environ["RUN_NUMBER"],
+              "text": (
+                  "Your job search agent finished.\n\n"
+                  "Dashboard: https://cmaloney7.github.io/job-search-agent/\n\n"
+                  "Run details: " + os.environ["RUN_URL"]
+              )
+          }).encode()
+          req = urllib.request.Request(
+              "https://api.resend.com/emails",
+              data=payload,
+              headers={
+                  "Authorization": "Bearer " + os.environ["RESEND_API_KEY"],
+                  "Content-Type": "application/json"
+              },
+              method="POST"
+          )
+          urllib.request.urlopen(req)
+          EOF

@@ -47,7 +47,7 @@ Append this to every title + location query: `software automation job careers re
 
 ## Posting age
 
-Max age: 30 days. Reduce score by 10-15 points for postings older than this.
+Max age: 1 day (24 hours). Score 0 for postings older than this.
 Show "unknown" on the dashboard if no date is available.
 
 ## Score threshold
