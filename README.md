@@ -9,6 +9,17 @@ Autonomous job search agent powered by Claude. Runs 2x/day via GitHub Actions, s
 3. **Dedup** — every URL is stored in `matches.db` after its first evaluation and never re-scored, keeping costs near zero as the search space fills.
 4. **Render** — scored results are written to `docs/index.html`, a static dashboard published via GitHub Pages.
 
+## Schedule
+
+Runs automatically via GitHub Actions on two cron triggers:
+
+| Trigger | UTC | Pacific |
+|---------|-----|---------|
+| Morning | `0 14 * * *` | 7:00 AM |
+| Evening | `0 2 * * *`  | 7:00 PM |
+
+After each run, a Resend email notification is sent to confirm the agent completed and link to the dashboard. You can also trigger a run manually from the Actions tab (`workflow_dispatch`).
+
 ## What it searches for
 
 **Job titles** (9):
@@ -46,7 +57,10 @@ Copy `.env.example` to `.env` and fill in:
 ```
 ANTHROPIC_API_KEY=sk-ant-...
 TAVILY_API_KEY=tvly-...
+RESEND_API_KEY=re_...
 ```
+
+`RESEND_API_KEY` is only needed locally if you want to test the email notification step. Get a key at resend.com.
 
 ### GitHub secrets
 
@@ -54,6 +68,7 @@ Add to Settings → Secrets and variables → Actions:
 
 - `ANTHROPIC_API_KEY`
 - `TAVILY_API_KEY`
+- `RESEND_API_KEY`
 
 ### GitHub Pages
 
