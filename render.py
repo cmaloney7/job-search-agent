@@ -15,23 +15,16 @@ OUTPUT_PATH = "docs/index.html"
 CRITERIA_PATH = "criteria.md"
 DISPLAY_THRESHOLD = 50
 
-_DATE_FORMATS = [
-    "%Y-%m-%dT%H:%M:%SZ",
-    "%Y-%m-%dT%H:%M:%S%z",
-    "%Y-%m-%d %H:%M:%S",
-    "%Y-%m-%d",
-]
-
 PAGE_TEMPLATE = """<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <title>Job search agent -- dashboard</title>
 <style>
-  body {{ font-family: -apple-system, sans-serif; max-width: 1000px; margin: 40px auto; padding: 0 20px; color: #222; }}
+  body {{ font-family: -apple-system, sans-serif; max-width: 1100px; margin: 40px auto; padding: 0 20px; color: #222; }}
   h1 {{ font-size: 20px; font-weight: 500; }}
   .meta {{ color: #666; font-size: 13px; margin-bottom: 16px; }}
-  .criteria {{ background: #f7f7f7; border: 1px solid #e5e5e5; border-radius: 6px; padding: 12px 20px; margin-bottom: 28px; font-size: 13px; color: #444; }}
+  .criteria {{ background: #f7f7f7; border: 1px solid #e5e5e5; border-radius: 6px; padding: 12px 20px; margin-bottom: 20px; font-size: 13px; color: #444; }}
   .criteria > summary {{ font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: #888; cursor: pointer; user-select: none; padding: 4px 0; }}
   .criteria > summary:hover {{ color: #444; }}
   .criteria[open] > summary {{ margin-bottom: 12px; }}
@@ -57,31 +50,138 @@ PAGE_TEMPLATE = """<!DOCTYPE html>
   summary {{ cursor: pointer; font-size: 13px; color: #666; padding: 8px 0; user-select: none; }}
   summary:hover {{ color: #333; }}
   details table {{ margin-top: 12px; opacity: 0.8; }}
+
+  /* Filter bar */
+  .filter-bar {{ display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 16px; }}
+  .filter-bar span {{ color: #666; font-size: 13px; }}
+  .filter-btn {{ font-size: 12px; padding: 4px 12px; border-radius: 4px; border: 1px solid #d5d5d5; cursor: pointer; background: #fff; color: #444; }}
+  .filter-btn.active {{ background: #222; color: #fff; border-color: #222; }}
+  .filter-btn:hover:not(.active) {{ background: #f0f0f0; }}
+
+  /* Status select */
+  .status-cell {{ width: 120px; white-space: nowrap; }}
+  .status-select {{ font-size: 12px; padding: 3px 6px; border-radius: 4px; border: 1px solid #d5d5d5; color: #444; cursor: pointer; width: 100%; }}
+
+  /* Row status colors */
+  tr.job-row[data-status="applied"] td {{ background-color: #e8f5e9; }}
+  tr.job-row[data-status="applied"] + tr.job-summary td {{ background-color: #e8f5e9; }}
+  tr.job-row[data-status="expired"] td {{ background-color: #f5f5f5; color: #aaa; }}
+  tr.job-row[data-status="expired"] + tr.job-summary td {{ background-color: #f5f5f5; color: #aaa; }}
+  tr.job-row[data-status="expired"] td a {{ color: #bbb; }}
+  tr.job-row[data-status="not-interested"] td {{ background-color: #fff3e0; }}
+  tr.job-row[data-status="not-interested"] + tr.job-summary td {{ background-color: #fff3e0; }}
 </style>
 </head>
 <body>
   <h1>Job search agent -- matches</h1>
   <div class="meta">Last updated {updated_at} UTC &middot; {count} matches at or above score {threshold}</div>
   {criteria_panel}
+  {filter_bar}
   {body}
+<!-- SCRIPT_PLACEHOLDER -->
 </body>
 </html>
 """
 
-ROW_TEMPLATE = """<tr>
+FILTER_BAR = """<div class="filter-bar">
+  <span>Show:</span>
+  <button class="filter-btn active" data-filter="all" onclick="setFilter(this)">All</button>
+  <button class="filter-btn" data-filter="active" onclick="setFilter(this)">Active only</button>
+  <button class="filter-btn" data-filter="applied" onclick="setFilter(this)">Applied</button>
+  <button class="filter-btn" data-filter="expired" onclick="setFilter(this)">Expired</button>
+  <button class="filter-btn" data-filter="not-interested" onclick="setFilter(this)">Not Interested</button>
+</div>"""
+
+SCRIPT = """<script>
+(function () {
+  var PREFIX = 'jsa:';
+
+  function setStatus(select) {
+    var row = select.closest('tr.job-row');
+    var url = row.dataset.url;
+    var status = select.value;
+    if (status) {
+      localStorage.setItem(PREFIX + url, status);
+    } else {
+      localStorage.removeItem(PREFIX + url);
+    }
+    row.dataset.status = status;
+    applyFilter();
+  }
+
+  function setFilter(btn) {
+    document.querySelectorAll('.filter-btn').forEach(function (b) {
+      b.classList.remove('active');
+    });
+    btn.classList.add('active');
+    localStorage.setItem(PREFIX + 'filter', btn.dataset.filter);
+    applyFilter();
+  }
+
+  function applyFilter() {
+    var active = document.querySelector('.filter-btn.active');
+    var filter = active ? active.dataset.filter : 'all';
+    document.querySelectorAll('tr.job-row').forEach(function (row) {
+      var status = row.dataset.status || '';
+      var show = true;
+      if (filter === 'active') {
+        show = status !== 'expired' && status !== 'not-interested';
+      } else if (filter !== 'all') {
+        show = status === filter;
+      }
+      var next = row.nextElementSibling;
+      row.style.display = show ? '' : 'none';
+      if (next && next.classList.contains('job-summary')) {
+        next.style.display = show ? '' : 'none';
+      }
+    });
+  }
+
+  window.setStatus = setStatus;
+  window.setFilter = setFilter;
+
+  document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('tr.job-row').forEach(function (row) {
+      var url = row.dataset.url;
+      var status = localStorage.getItem(PREFIX + url) || '';
+      if (status) {
+        row.dataset.status = status;
+        var sel = row.querySelector('.status-select');
+        if (sel) sel.value = status;
+      }
+    });
+    var saved = localStorage.getItem(PREFIX + 'filter') || 'all';
+    var btn = document.querySelector('.filter-btn[data-filter="' + saved + '"]');
+    if (btn) {
+      document.querySelectorAll('.filter-btn').forEach(function (b) { b.classList.remove('active'); });
+      btn.classList.add('active');
+    }
+    applyFilter();
+  });
+})();
+</script>"""
+
+ROW_TEMPLATE = """<tr class="job-row" data-url="{url}" data-status="">
   <td class="score {score_class}">{score}</td>
   <td><a href="{url}" target="_blank">{title}</a></td>
   <td>{company}</td>
   <td>{location}</td>
   <td>{comp_text}</td>
   <td>{comp_type}</td>
-  <td>{posting_age}</td>
   <td>{reasoning}</td>
   <td>{found_at}</td>
+  <td class="status-cell">
+    <select class="status-select" onchange="setStatus(this)">
+      <option value="">&#8212;</option>
+      <option value="applied">Applied</option>
+      <option value="expired">Expired</option>
+      <option value="not-interested">Not Interested</option>
+    </select>
+  </td>
 </tr>
-<tr><td colspan="9" class="summary">{summary}</td></tr>"""
+<tr class="job-summary"><td colspan="9" class="summary">{summary}</td></tr>"""
 
-TABLE_HEADER = "<tr><th>Score</th><th>Title</th><th>Company</th><th>Location</th><th>Comp</th><th>Type</th><th>Age</th><th>Why</th><th>Found</th></tr>"
+TABLE_HEADER = "<tr><th>Score</th><th>Title</th><th>Company</th><th>Location</th><th>Comp</th><th>Type</th><th>Why</th><th>Found</th><th>Status</th></tr>"
 
 
 def load_criteria():
@@ -184,25 +284,6 @@ def score_class(score):
     return "score-low"
 
 
-def posting_age(posted_date):
-    if not posted_date:
-        return "unknown"
-    now = datetime.now(timezone.utc)
-    for fmt in _DATE_FORMATS:
-        try:
-            dt = datetime.strptime(posted_date, fmt)
-            if dt.tzinfo is None:
-                dt = dt.replace(tzinfo=timezone.utc)
-            delta = now - dt
-            hours = int(delta.total_seconds() // 3600)
-            if hours < 24:
-                return f"{hours}h ago" if hours > 0 else "today"
-            return f"{delta.days}d ago"
-        except ValueError:
-            continue
-    return "unknown"
-
-
 def render_rows(matches):
     return "\n".join(
         ROW_TEMPLATE.format(
@@ -214,7 +295,6 @@ def render_rows(matches):
             location=html.escape(m["location"] or "?"),
             comp_text=html.escape(m["comp_text"] or "Not listed"),
             comp_type=html.escape(m["comp_type"] or "--"),
-            posting_age=posting_age(m.get("posted_date")),
             summary=html.escape(m["summary"] or ""),
             reasoning=html.escape(m["reasoning"] or ""),
             found_at=m["found_at"],
@@ -259,8 +339,10 @@ def render():
         count=len(above),
         threshold=DISPLAY_THRESHOLD,
         criteria_panel=criteria_panel,
+        filter_bar=FILTER_BAR,
         body=body,
     )
+    page = page.replace("<!-- SCRIPT_PLACEHOLDER -->", SCRIPT)
 
     with open(OUTPUT_PATH, "w") as f:
         f.write(page)
