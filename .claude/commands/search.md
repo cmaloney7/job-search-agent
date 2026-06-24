@@ -39,8 +39,21 @@ Run: `python db.py seen "<url>"`
 Exit code 0 = already in db, skip it.
 
 **b. Check hard disqualifiers:**
-Scan the title and snippet for any term in the hard disqualifiers list (case-insensitive).
-If matched, record with score 0 and skip Claude scoring:
+First, check if the job is closed or expired by scanning the title and snippet
+(case-insensitive) for any of these phrases:
+- "no longer accepting"
+- "no longer available"
+- "position has been filled"
+- "this job is closed"
+- "this job has expired"
+- "job has been filled"
+- "not accepting applications"
+- "applications are closed"
+- "this position is closed"
+
+Then scan for hard disqualifier terms from criteria.md (case-insensitive).
+
+If any match, record with score 0 and skip Claude scoring:
 ```
 python db.py insert '{"url":"...","title":"...","score":0,"reasoning":"Hard disqualifier: <term>"}'
 ```
@@ -55,17 +68,25 @@ Using the full candidate profile and criteria, score 0-100:
 
 Hard filters that score 0:
 - Seniority clearly outside QA Engineer III through Director range
-- Posted comp clearly below $160K floor
+- Posted comp clearly below $150K floor
 - On-site required outside Seattle WA or San Diego CA
-
-Reduce score 10-15 points if published_date is older than MAX_POSTING_AGE_DAYS.
+- `published_date` is present AND older than the max posting age in criteria.md
 
 **d. Record the result:**
 Always record (even below threshold) so the URL is never re-scored.
 
 Build a JSON object with all fields you have:
+
+- `posted_date`: use the `published_date` field from the Tavily result verbatim
+  (it is an ISO date string like "2024-01-15T00:00:00Z", or null). Do NOT
+  extract date text from the snippet — if `published_date` is null, omit
+  `posted_date` or set it to null.
+- `comp_text`: salary/pay range if explicitly stated in the snippet (e.g.
+  "$180K–$220K", "$95/hr"). If not mentioned, omit or set to null.
+- `comp_type`: "FTE", "contract", or null based on the posting.
+
 ```
-python db.py insert '{"url":"...","title":"...","company":"...","location":"...","comp_text":"...","comp_type":"FTE or contract or null","posted_date":"...","summary":"2-3 sentence plain-English summary of the role","score":75,"reasoning":"one sentence under 25 words"}'
+python db.py insert '{"url":"...","title":"...","company":"...","location":"...","comp_text":"$180K-$220K or null","comp_type":"FTE or contract or null","posted_date":"2024-01-15T00:00:00Z or null","summary":"2-3 sentence plain-English summary of the role","score":75,"reasoning":"one sentence under 25 words"}'
 ```
 
 Print a line for matches at or above threshold:

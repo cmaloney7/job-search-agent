@@ -212,7 +212,7 @@ def render_rows(matches):
             title=html.escape(m["title"] or "Untitled"),
             company=html.escape(m["company"] or "?"),
             location=html.escape(m["location"] or "?"),
-            comp_text=html.escape(m["comp_text"] or "--"),
+            comp_text=html.escape(m["comp_text"] or "Not listed"),
             comp_type=html.escape(m["comp_type"] or "--"),
             posting_age=posting_age(m.get("posted_date")),
             summary=html.escape(m["summary"] or ""),
