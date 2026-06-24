@@ -41,8 +41,8 @@ Append this to every title + location query: `software automation job careers re
 
 ## Compensation
 
-- Floor: $160,000
-- Target: up to $235,000
+- Floor: $150,000
+- Target: up to $275,000
 - Score 0 if a posted range is clearly below the floor
 
 ## Posting age

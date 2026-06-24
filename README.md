@@ -38,7 +38,7 @@ After each run, a Resend email notification is sent to confirm the agent complet
 
 **Job boards** (9): greenhouse.io · lever.co · myworkdayjobs.com · jobs.ashbyhq.com · smartrecruiters.com · icims.com · linkedin.com · weworkremotely.com · wellfound.com
 
-**Compensation**: $160,000 floor, up to $235,000 target. Postings clearly below the floor score 0.
+**Compensation**: $150,000 floor, up to $275,000 target. Postings clearly below the floor score 0.
 
 ## Setup
 
