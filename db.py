@@ -70,6 +70,13 @@ def insert_match(conn, *, url, title=None, company=None, location=None,
     )
 
 
+def update_status(conn, *, url, status):
+    conn.execute(
+        "UPDATE matches SET status = ? WHERE url_hash = ?",
+        (status or "new", url_hash(url)),
+    )
+
+
 def all_matches(conn, order_by: str = "score DESC, found_at DESC"):
     cur = conn.execute(f"SELECT * FROM matches ORDER BY {order_by}")
     cols = [d[0] for d in cur.description]

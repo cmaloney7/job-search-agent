@@ -58,6 +58,13 @@ PAGE_TEMPLATE = """<!DOCTYPE html>
   .filter-btn.active {{ background: #222; color: #fff; border-color: #222; }}
   .filter-btn:hover:not(.active) {{ background: #f0f0f0; }}
 
+  /* Sort indicators */
+  th[data-col] {{ cursor: pointer; user-select: none; white-space: nowrap; }}
+  th[data-col]:hover {{ color: #333; }}
+  th[data-col]::after {{ content: ' ↕'; color: #ccc; font-size: 10px; }}
+  th[data-col].sort-asc::after {{ content: ' ▲'; color: #444; font-size: 10px; }}
+  th[data-col].sort-desc::after {{ content: ' ▼'; color: #444; font-size: 10px; }}
+
   /* Status select */
   .status-cell {{ width: 120px; white-space: nowrap; }}
   .status-select {{ font-size: 12px; padding: 3px 6px; border-radius: 4px; border: 1px solid #d5d5d5; color: #444; cursor: pointer; width: 100%; }}
@@ -96,7 +103,7 @@ SCRIPT = """<script>
 (function () {
   var PREFIX = 'jsa:';
 
-  function setStatus(select) {
+  async function setStatus(select) {
     var row = select.closest('tr.job-row');
     var url = row.dataset.url;
     var status = select.value;
@@ -106,6 +113,13 @@ SCRIPT = """<script>
       localStorage.removeItem(PREFIX + url);
     }
     row.dataset.status = status;
+    try {
+      await fetch('/api/status', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ url: url, status: status })
+      });
+    } catch (e) {}
     applyFilter();
   }
 
@@ -137,13 +151,104 @@ SCRIPT = """<script>
     });
   }
 
+  function parseComp(s) {
+    if (!s) return -1;
+    var m = s.replace(/,/g, '').match(/([0-9]+(?:\\.[0-9]+)?)\\s*(k)?/i);
+    if (!m) return -1;
+    var n = parseFloat(m[1]);
+    if (m[2]) n *= 1000;
+    return n;
+  }
+
+  function getVal(row, col) {
+    switch (col) {
+      case 'score': return parseInt(row.dataset.score, 10) || 0;
+      case 'comp': return parseComp(row.dataset.comp);
+      case 'title': return (row.dataset.title || '').toLowerCase();
+      case 'company': return (row.dataset.company || '').toLowerCase();
+      case 'location': return (row.dataset.location || '').toLowerCase();
+      case 'type': return (row.dataset.type || '').toLowerCase();
+      case 'why': return (row.dataset.why || '').toLowerCase();
+      case 'found': return row.dataset.found || '';
+      case 'status': return row.dataset.status || '';
+      default: return '';
+    }
+  }
+
+  function sortTableRows(table, col, asc) {
+    var pairs = [];
+    table.querySelectorAll('tr.job-row').forEach(function (row) {
+      var next = row.nextElementSibling;
+      pairs.push([row, next && next.classList.contains('job-summary') ? next : null]);
+    });
+    var numeric = col === 'score' || col === 'comp';
+    pairs.sort(function (a, b) {
+      var av = getVal(a[0], col);
+      var bv = getVal(b[0], col);
+      if (numeric) return asc ? av - bv : bv - av;
+      var r = String(av).localeCompare(String(bv));
+      return asc ? r : -r;
+    });
+    var container = table.tBodies[0] || table;
+    pairs.forEach(function (pair) {
+      container.appendChild(pair[0]);
+      if (pair[1]) container.appendChild(pair[1]);
+    });
+  }
+
+  function sortTable(th) {
+    var col = th.dataset.col;
+    var asc;
+    if (th.classList.contains('sort-desc')) {
+      asc = true;
+    } else if (th.classList.contains('sort-asc')) {
+      asc = false;
+    } else {
+      asc = col !== 'score' && col !== 'found' && col !== 'comp';
+    }
+    document.querySelectorAll('th[data-col]').forEach(function (h) {
+      h.classList.remove('sort-asc', 'sort-desc');
+      if (h.dataset.col === col) h.classList.add(asc ? 'sort-asc' : 'sort-desc');
+    });
+    document.querySelectorAll('table').forEach(function (table) {
+      sortTableRows(table, col, asc);
+    });
+    localStorage.setItem(PREFIX + 'sort-col', col);
+    localStorage.setItem(PREFIX + 'sort-asc', asc ? '1' : '0');
+  }
+
   window.setStatus = setStatus;
   window.setFilter = setFilter;
+  window.sortTable = sortTable;
 
-  document.addEventListener('DOMContentLoaded', function () {
+  document.addEventListener('DOMContentLoaded', async function () {
+    // Try to load statuses from the local server; fall back to localStorage.
+    var dbStatuses = null;
+    try {
+      var resp = await fetch('/api/statuses');
+      if (resp.ok) dbStatuses = await resp.json();
+    } catch (e) {}
+
     document.querySelectorAll('tr.job-row').forEach(function (row) {
       var url = row.dataset.url;
-      var status = localStorage.getItem(PREFIX + url) || '';
+      var status;
+      if (dbStatuses !== null) {
+        status = dbStatuses[url] || '';
+        // First-connect migration: push any localStorage-only status to the DB.
+        if (!status) {
+          var lsStatus = localStorage.getItem(PREFIX + url) || '';
+          if (lsStatus) {
+            status = lsStatus;
+            fetch('/api/status', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ url: url, status: lsStatus })
+            }).catch(function () {});
+          }
+        }
+      } else {
+        status = localStorage.getItem(PREFIX + url) || '';
+      }
       if (status) {
         row.dataset.status = status;
         var sel = row.querySelector('.status-select');
@@ -157,11 +262,27 @@ SCRIPT = """<script>
       btn.classList.add('active');
     }
     applyFilter();
+
+    var sortCol = localStorage.getItem(PREFIX + 'sort-col');
+    var sortAscVal = localStorage.getItem(PREFIX + 'sort-asc');
+    if (sortCol) {
+      var asc = sortAscVal === '1';
+      document.querySelectorAll('th[data-col="' + sortCol + '"]').forEach(function (h) {
+        h.classList.add(asc ? 'sort-asc' : 'sort-desc');
+      });
+      document.querySelectorAll('table').forEach(function (t) {
+        sortTableRows(t, sortCol, asc);
+      });
+    } else {
+      document.querySelectorAll('th[data-col="score"]').forEach(function (h) {
+        h.classList.add('sort-desc');
+      });
+    }
   });
 })();
 </script>"""
 
-ROW_TEMPLATE = """<tr class="job-row" data-url="{url}" data-status="">
+ROW_TEMPLATE = """<tr class="job-row" data-url="{url}" data-status="" data-score="{score}" data-title="{title}" data-company="{company}" data-location="{location}" data-comp="{comp_text}" data-type="{comp_type}" data-why="{reasoning}" data-found="{found_at}">
   <td class="score {score_class}">{score}</td>
   <td><a href="{url}" target="_blank">{title}</a></td>
   <td>{company}</td>
@@ -181,7 +302,7 @@ ROW_TEMPLATE = """<tr class="job-row" data-url="{url}" data-status="">
 </tr>
 <tr class="job-summary"><td colspan="9" class="summary">{summary}</td></tr>"""
 
-TABLE_HEADER = "<tr><th>Score</th><th>Title</th><th>Company</th><th>Location</th><th>Comp</th><th>Type</th><th>Why</th><th>Found</th><th>Status</th></tr>"
+TABLE_HEADER = '<tr><th data-col="score" onclick="sortTable(this)">Score</th><th data-col="title" onclick="sortTable(this)">Title</th><th data-col="company" onclick="sortTable(this)">Company</th><th data-col="location" onclick="sortTable(this)">Location</th><th data-col="comp" onclick="sortTable(this)">Comp</th><th data-col="type" onclick="sortTable(this)">Type</th><th data-col="why" onclick="sortTable(this)">Why</th><th data-col="found" onclick="sortTable(this)">Found</th><th data-col="status" onclick="sortTable(this)">Status</th></tr>'
 
 
 def load_criteria():
