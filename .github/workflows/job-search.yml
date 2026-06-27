@@ -2,8 +2,7 @@ name: Job search agent
 
 on:
   schedule:
-    - cron: "0 14 * * *"
-    - cron: "0 2 * * *"
+    - cron: "0 12 * * 2,4,6"
   workflow_dispatch: {}
 
 permissions:
