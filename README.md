@@ -11,12 +11,7 @@ Autonomous job search agent powered by Claude. Runs 2x/day via GitHub Actions, s
 
 ## Schedule
 
-Runs automatically via GitHub Actions on two cron triggers:
-
-| Trigger | UTC | Pacific |
-|---------|-----|---------|
-| Morning | `0 14 * * *` | 7:00 AM |
-| Evening | `0 2 * * *`  | 7:00 PM |
+Runs automatically via GitHub Actions on Tuesday, Thursday, and Saturday at 5:00 AM PT (`0 12 * * 2,4,6` UTC).
 
 After each run, a Resend email notification is sent to confirm the agent completed and link to the dashboard. You can also trigger a run manually from the Actions tab (`workflow_dispatch`).
 
@@ -108,4 +103,4 @@ Do not edit `db.py`, `search_helper.py`, or `render.py` unless the data model or
 
 ## Cost
 
-~2,160 Tavily API calls/month (2 runs/day × 36 queries × 30 days). Claude scoring runs in-context — no separate API calls per posting. Estimated total: Tavily Starter plan (~$20/month) + minimal Claude token usage.
+~468 Tavily API calls/month (3 runs/week × 36 queries × 4.33 weeks). Claude scoring runs in-context — no separate API calls per posting. Estimated total: Tavily Starter plan (~$20/month) + minimal Claude token usage.
