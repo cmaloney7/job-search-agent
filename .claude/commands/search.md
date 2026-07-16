@@ -30,7 +30,9 @@ If no job boards are listed, omit the flag:
 python search_helper.py "<query>"
 ```
 
-This returns a JSON array. Each item has: url, title, content (snippet), published_date.
+This returns a JSON array. Each item has: url, title, content (snippet),
+raw_content (full page text, may be null if Tavily couldn't extract it),
+published_date.
 
 ### 3. For each result
 
@@ -40,8 +42,10 @@ Exit code 0 = already in db, skip it.
 
 **b. Check hard disqualifiers:**
 First, check if the job is closed or expired by scanning the title and snippet
-(case-insensitive) for any of these phrases:
+(case-insensitive and phrase search mode) for any of these phrases:
 - "no longer accepting"
+- "No longer accepting applications"
+- "The job that you were looking for either does not exist or is no longer open"
 - "no longer available"
 - "position has been filled"
 - "this job is closed"
@@ -81,9 +85,13 @@ Build a JSON object with all fields you have:
   (it is an ISO date string like "2024-01-15T00:00:00Z", or null). Do NOT
   extract date text from the snippet — if `published_date` is null, omit
   `posted_date` or set it to null.
-- `comp_text`: salary/pay range if explicitly stated in the snippet (e.g.
-  "$180K–$220K", "$95/hr"). If not mentioned, omit or set to null.
-- `comp_type`: "FTE", "contract", or null based on the posting.
+- `comp_text`: salary/pay range if explicitly stated. Check `raw_content` first
+  (it holds the full page, where comp is often shown after a "show more" expander
+  that the snippet omits) and fall back to the snippet. Examples: "$180K–$220K",
+  "$95/hr". If not mentioned anywhere, omit or set to null.
+- `comp_type`: "FTE", "contract", or null. Infer from explicit language in
+  `raw_content` or the snippet (e.g. "contractor", "hourly", "full-time",
+  "W2 employee"). Do not guess when there's no explicit signal — leave null.
 
 ```
 python db.py insert '{"url":"...","title":"...","company":"...","location":"...","comp_text":"$180K-$220K or null","comp_type":"FTE or contract or null","posted_date":"2024-01-15T00:00:00Z or null","summary":"2-3 sentence plain-English summary of the role","score":75,"reasoning":"one sentence under 25 words"}'

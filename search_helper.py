@@ -5,7 +5,8 @@ Usage:
   python search_helper.py "QA Engineering Manager Remote software automation job"
 
 Outputs a JSON array of results to stdout. Each result has:
-  url, title, content (snippet), published_date, score (Tavily relevance)
+  url, title, content (snippet), raw_content (full page text, markdown),
+  published_date, score (Tavily relevance)
 """
 
 import sys
@@ -25,6 +26,7 @@ def search(query: str, max_results: int = 5, include_domains: list = None):
         "query": query,
         "search_depth": "basic",
         "max_results": max_results,
+        "include_raw_content": "markdown",
     }
     if include_domains:
         kwargs["include_domains"] = include_domains
