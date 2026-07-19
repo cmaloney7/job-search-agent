@@ -56,7 +56,7 @@ The dashboard link in the email is built at runtime from `github.repository_owne
 
 **Locations** (4): Remote · Seattle WA · San Diego CA · Charleston SC
 
-**Job boards** (9): greenhouse.io · lever.co · myworkdayjobs.com · jobs.ashbyhq.com · smartrecruiters.com · icims.com · linkedin.com · weworkremotely.com · wellfound.com
+**Job boards** (12): builtin.com · indeed.com · Dice.com · greenhouse.io · lever.co · myworkdayjobs.com · jobs.ashbyhq.com · smartrecruiters.com · icims.com · linkedin.com · weworkremotely.com · wellfound.com
 
 **Compensation**: $150,000 floor, up to $275,000 target. Postings clearly below the floor score 0.
 

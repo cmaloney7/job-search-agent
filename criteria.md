@@ -25,6 +25,9 @@ Restrict Tavily searches to these domains. This prevents job board category page
 (ZipRecruiter, Built In, etc.) from filling results instead of individual postings.
 Remove a domain or comment it out (prefix with `#`) to stop searching it.
 
+- builtin.com
+- indeed.com
+- Dice.com
 - greenhouse.io
 - lever.co
 - myworkdayjobs.com
@@ -47,7 +50,7 @@ Append this to every title + location query: `software automation job careers re
 
 ## Posting age
 
-Max age: 1 day (24 hours). Score 0 for postings older than this.
+Max age: 7 days. Score 0 for postings older than this.
 Show "unknown" on the dashboard if no date is available.
 
 ## Score threshold
