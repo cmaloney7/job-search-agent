@@ -44,72 +44,19 @@ jobs:
       - name: Send dashboard notification
         env:
           RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+          DASHBOARD_EMAIL: ${{ secrets.DASHBOARD_EMAIL }}
+          RESEND_FROM_EMAIL: ${{ secrets.RESEND_FROM_EMAIL }}
           RUN_NUMBER: ${{ github.run_number }}
           RUN_URL: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
-        run: |
-          python3 << 'EOF'
-          import json, os, urllib.request
-          payload = json.dumps({
-              "from": "Job Search Agent <onboarding@resend.dev>",
-              "to": ["cdmolloy@gmail.com"],
-              "subject": "Job search run complete — run #" + os.environ["RUN_NUMBER"],
-              "text": (
-                  "Your job search agent finished.\n\n"
-                  "Dashboard: https://cmaloney7.github.io/job-search-agent/\n\n"
-                  "Run details: " + os.environ["RUN_URL"]
-              )
-          }).encode()
-          req = urllib.request.Request(
-              "https://api.resend.com/emails",
-              data=payload,
-              headers={
-                  "Authorization": "Bearer " + os.environ["RESEND_API_KEY"],
-                  "Content-Type": "application/json",
-                  "User-Agent": "python-resend/1.0"
-              },
-              method="POST"
-          )
-          urllib.request.urlopen(req)
-          EOF
+          DASHBOARD_URL: https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/
+        run: python notify.py success
 
       - name: Send failure notification
         if: failure()
         env:
           RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+          DASHBOARD_EMAIL: ${{ secrets.DASHBOARD_EMAIL }}
+          RESEND_FROM_EMAIL: ${{ secrets.RESEND_FROM_EMAIL }}
           RUN_NUMBER: ${{ github.run_number }}
           RUN_URL: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
-        run: |
-          python3 << 'EOF'
-          import json, os, urllib.request
-
-          log_path = os.path.join(os.environ.get("RUNNER_TEMP", "/tmp"), "search-output.log")
-          try:
-              with open(log_path) as f:
-                  tail = "".join(f.readlines()[-40:]).strip()
-              if not tail:
-                  tail = "(step produced no output before failing)"
-          except FileNotFoundError:
-              tail = "(no output captured — failure likely occurred outside the search step)"
-
-          payload = json.dumps({
-              "from": "Job Search Agent <onboarding@resend.dev>",
-              "to": ["cdmolloy@gmail.com"],
-              "subject": "Job search run FAILED — run #" + os.environ["RUN_NUMBER"],
-              "text": (
-                  "Your job search agent run failed.\n\n"
-                  "Run details: " + os.environ["RUN_URL"] + "\n\n"
-                  "Last output before failure:\n\n" + tail
-              )
-          }).encode()
-          req = urllib.request.Request(
-              "https://api.resend.com/emails",
-              data=payload,
-              headers={
-                  "Authorization": "Bearer " + os.environ["RESEND_API_KEY"],
-                  "Content-Type": "application/json",
-                  "User-Agent": "python-resend/1.0"
-              },
-              method="POST"
-          )
-          urllib.request.urlopen(req)
-          EOF
+        run: python notify.py failure

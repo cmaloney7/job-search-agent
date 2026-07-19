@@ -2,7 +2,7 @@
 Local dashboard server. Serves docs/index.html and persists status
 changes back to matches.db.
 
-Usage: python server.py [port]   (default port: 8765)
+Usage: python3 server.py [port]   (default port: 8765)
 
 Status changes made in the browser are POSTed to /api/status and
 written to matches.db immediately. On page load the browser fetches
