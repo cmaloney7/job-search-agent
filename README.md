@@ -1,6 +1,6 @@
 # job-search-agent
 
-Autonomous job search agent powered by Claude. Runs 2x/day via GitHub Actions, scores postings against a candidate profile, and publishes results to a GitHub Pages dashboard.
+Autonomous job search agent powered by Claude. Cron scheduled run via GitHub Actions, scores postings against a candidate profile, and publishes results to a GitHub Pages dashboard.
 
 ## How it works
 
@@ -66,6 +66,10 @@ The dashboard link in the email is built at runtime from `github.repository_owne
 
 - **Python 3.11+**
 - **Node.js/npm**, to install the Claude Code CLI: `npm install -g @anthropic-ai/claude-code`. Required to run `/search` and `/render` locally — they're Claude Code skills, not standalone Python scripts.
+- **API accounts** — sign up and generate a key at each of the following before configuring the environment variables below:
+  - **Anthropic** — console.anthropic.com → Settings → API Keys. Powers the scoring/orchestration; requires billing set up on the account.
+  - **Tavily** — tavily.com → sign up → API Keys on your dashboard. The Starter plan (~$20/month) covers this project's query volume (see [Cost](#cost)).
+  - **Resend** — resend.com → sign up → API Keys. Only needed if you want run-completion/failure email notifications; the shared sandbox sender (`onboarding@resend.dev`) works without verifying a domain.
 
 ### Dependencies
 
