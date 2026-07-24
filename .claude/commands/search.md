@@ -40,6 +40,22 @@ published_date.
 Run: `python db.py seen "<url>"`
 Exit code 0 = already in db, skip it.
 
+**a2. Skip aggregator listing/category pages:**
+For results from `linkedin.com`, `indeed.com`, `dice.com`, and `builtin.com`, check
+whether the URL points to an individual job posting or a search/category page.
+
+Individual posting indicators (keep these):
+- `linkedin.com` — URL contains `/jobs/view/`
+- `indeed.com` — URL contains `/viewjob`
+- `dice.com` — URL contains `/job-detail/`
+- `builtin.com` — URL path has at least 3 segments after `/job/` (e.g. `/job/engineer/qa/123`)
+
+If the URL does NOT match the individual-posting pattern for that domain, record it
+with score 0 and skip scoring:
+```
+python db.py insert '{"url":"...","title":"...","score":0,"reasoning":"Listing/category page, not an individual posting"}'
+```
+
 **b. Check hard disqualifiers:**
 First, check if the job is closed or expired by scanning the title and snippet
 (case-insensitive and phrase search mode) for any of these phrases:
