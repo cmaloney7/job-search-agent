@@ -15,7 +15,6 @@
 ## Locations
 
 - Remote
-- Seattle WA
 - San Diego CA
 - Charleston SC
 
@@ -81,5 +80,5 @@ Display on dashboard at or above: 50
 ## Negative signals (count against)
 
 - Pure manual QA execution role with no automation component
-- Requires on-site presence outside Seattle or San Diego with no remote option
+- Requires on-site presence outside Charleston or San Diego with no remote option
 - Comp below floor based on posted range

@@ -4,7 +4,7 @@ Autonomous job search agent powered by Claude. Cron scheduled run via GitHub Act
 
 ## How it works
 
-1. **Search** — queries Tavily across 36 combinations of job titles and locations, returning fresh postings each run.
+1. **Search** — queries Tavily across 27 combinations of job titles and locations, returning fresh postings each run.
 2. **Score** — Claude reads the full candidate profile and criteria, then scores each new posting 0–100. Hard disqualifiers are keyword-checked first to skip obvious misses.
 3. **Dedup** — every URL is stored in `matches.db` after its first evaluation and never re-scored, keeping costs near zero as the search space fills.
 4. **Render** — scored results are written to `docs/index.html`, a static dashboard published via GitHub Pages.
@@ -54,7 +54,7 @@ The dashboard link in the email is built at runtime from `github.repository_owne
 - Senior QA Engineer
 - Staff QA Automation Engineer
 
-**Locations** (4): Remote · Seattle WA · San Diego CA · Charleston SC
+**Locations** (3): Remote · San Diego CA · Charleston SC
 
 **Job boards** (8): greenhouse.io · lever.co · myworkdayjobs.com · jobs.ashbyhq.com · smartrecruiters.com · icims.com · weworkremotely.com · wellfound.com
 
@@ -98,7 +98,7 @@ RESEND_FROM_EMAIL=Job Search Agent <onboarding@resend.dev>
 `notify.py` sends the same email the GitHub Actions workflow sends, using the values above. The dashboard link it sends defaults to `http://localhost:8765/`, so start the local server first or the link in the email won't resolve:
 
 ```bash
-python3 server.py &               # starts the dashboard at localhost:8765
+python3 server.py           # starts the dashboard at localhost:8765
 python3 notify.py success   # sends the run-complete email
 python3 notify.py failure   # sends the run-failed email (with a log tail, if found)
 ```
@@ -159,4 +159,4 @@ Do not edit `db.py`, `search_helper.py`, or `render.py` unless the data model or
 
 ## Cost
 
-~468 Tavily API calls/month (3 runs/week × 36 queries × 4.33 weeks). Claude scoring runs in-context — no separate API calls per posting. Estimated total: Tavily Starter plan (~$20/month) + minimal Claude token usage.
+~351 Tavily API calls/month (3 runs/week × 27 queries × 4.33 weeks). Claude scoring runs in-context — no separate API calls per posting. Estimated total: Tavily Starter plan (~$20/month) + minimal Claude token usage.

@@ -13,9 +13,9 @@ scratch, not inheriting a mature team. 15+ years in QA and Quality
 Engineering leadership across regulated industries.
 
 Current title: QA leader at Vivacity Tech PBC (April 2024 to present).
-Location: San Diego CA. Also splits time with Seattle WA.
+Location: San Diego CA.
 Compensation target: $150K floor, up to $275K depending on scope and level.
-Open to: remote, Seattle, San Diego. Not open to relocation elsewhere.
+Open to: remote, Charleston, SC, San Diego, CA. Open to relocation elsewhere.
 
 ---
 
@@ -81,7 +81,7 @@ These are hard stops, not fit concerns to weigh against positives.
   device hardware or regulated device software, score 0.
 - IoT, in-vehicle, embedded, or hardware-in-the-loop testing as the primary domain.
 - Oracle JD Edwards, Hyperion EPM, or SAP as hard technical requirements.
-- On-site presence required outside Seattle WA or San Diego CA.
+- On-site presence required outside Charleston SC or San Diego CA.
 
 ---
 
@@ -100,4 +100,4 @@ These are hard stops, not fit concerns to weigh against positives.
 - Established team of 20+ with no greenfield opportunity
 - Requires hardware or IoT domain expertise
 - ERP or financial systems QA only with no AI/automation angle
-- On-site required outside Seattle or San Diego
+- On-site required outside Charleston or San Diego

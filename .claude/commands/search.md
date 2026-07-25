@@ -89,7 +89,7 @@ Using the full candidate profile and criteria, score 0-100:
 Hard filters that score 0:
 - Seniority clearly outside QA Engineer III through Director range
 - Posted comp clearly below $150K floor
-- On-site required outside Seattle WA or San Diego CA
+- On-site required outside Charleston SC or San Diego CA
 - `published_date` is present AND older than the max posting age in criteria.md
 
 **d. Record the result:**
