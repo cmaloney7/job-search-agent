@@ -14,7 +14,7 @@ Engineering leadership across regulated industries.
 
 Current title: QA leader at Vivacity Tech PBC (April 2024 to present).
 Location: San Diego CA.
-Compensation target: $150K floor, up to $275K depending on scope and level.
+Compensation target: $150K floor, up to $400K depending on scope and level.
 Open to: remote, Charleston, SC, San Diego, CA. Open to relocation elsewhere.
 
 ---
