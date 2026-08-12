@@ -1,4 +1,4 @@
-# Candidate profile -- Corey Molloy
+# Candidate profile
 
 Read by the /search skill to score job postings. Update this file as the
 job search evolves. No other files need to change.
@@ -55,7 +55,7 @@ Open to: remote, Charleston, SC, San Diego, CA. Open to relocation elsewhere.
 
 ## Technical stack
 
-Primary: Node.js, JavaScript, Cypress, Playwright.
+Primary: PromptFoo, LMStudio, Claude Code, Node.js, JavaScript, Cypress, Playwright.
 Secondary (developing): Python.
 CI/CD: GitHub Actions.
 Daily AI workflow: Claude Code, OpenAI/GPT, Gemini Gems, CodeRabbit.
@@ -65,7 +65,7 @@ Prior: Parasoft Service Virtualization.
 
 ## Leadership scope
 
-Largest team managed: seven direct plus offshore contractors (Vivacity).
+Largest team managed: seven direct plus offshore contractors (Vivacity) across 3 dev teams.
 Experience building cross-functional QA coverage across multiple dev teams.
 Has driven test strategy, release gating, and defect triage process design.
 People leadership and technical leadership both in scope.

@@ -1,6 +1,6 @@
 # CLAUDE.md -- job-search-agent
 
-Autonomous job search agent for Corey Molloy. Runs 2x/day via GitHub Actions.
+Autonomous job search agent. Runs 3x/week via GitHub Actions.
 
 ---
 
