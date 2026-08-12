@@ -11,10 +11,12 @@
 - QA Engineer III
 - Senior QA Engineer
 - Staff QA Automation Engineer
+- AI Eval
 
 ## Locations
 
 - Remote
+- United States
 - San Diego CA
 - Charleston SC
 
@@ -24,10 +26,6 @@ Restrict Tavily searches to these domains. This prevents job board category page
 (ZipRecruiter, Built In, etc.) from filling results instead of individual postings.
 Remove a domain or comment it out (prefix with `#`) to stop searching it.
 
-# - builtin.com
-# - indeed.com
-# - dice.com
-# - linkedin.com
 - greenhouse.io
 - lever.co
 - myworkdayjobs.com
