@@ -12,6 +12,7 @@
 - Senior QA Engineer
 - Staff QA Automation Engineer
 - AI Eval
+- Confidence Engineer
 
 ## Locations
 

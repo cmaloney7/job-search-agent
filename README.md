@@ -42,7 +42,7 @@ The dashboard link in the email is built at runtime from `github.repository_owne
 
 ## What it searches for
 
-**Job titles** (10):
+**Job titles** (11):
 
 - QA Engineering Manager
 - Manager Quality Engineering
@@ -54,6 +54,7 @@ The dashboard link in the email is built at runtime from `github.repository_owne
 - Senior QA Engineer
 - Staff QA Automation Engineer
 - AI Eval
+- Confidence Engineer
 
 **Locations** (4): Remote · United States · San Diego CA · Charleston SC
 
