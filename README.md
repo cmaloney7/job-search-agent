@@ -42,7 +42,7 @@ The dashboard link in the email is built at runtime from `github.repository_owne
 
 ## What it searches for
 
-**Job titles** (11):
+**Job titles** (13):
 
 - QA Engineering Manager
 - Manager Quality Engineering
@@ -53,12 +53,14 @@ The dashboard link in the email is built at runtime from `github.repository_owne
 - QA Engineer III
 - Senior QA Engineer
 - Staff QA Automation Engineer
+- SDET
+- Test Engineer
 - AI Eval
 - Confidence Engineer
 
 **Locations** (4): Remote · United States · San Diego CA · Charleston SC
 
-**Job boards** (8): greenhouse.io · lever.co · myworkdayjobs.com · jobs.ashbyhq.com · smartrecruiters.com · icims.com · weworkremotely.com · wellfound.com
+**Job boards** (11): greenhouse.io · lever.co · myworkdayjobs.com · jobs.ashbyhq.com · smartrecruiters.com · icims.com · weworkremotely.com · wellfound.com · remoteok.com · toptal.com · contra.com
 
 **Compensation**: $150,000 floor, up to $400,000 target. Postings clearly below the floor score 0.
 
