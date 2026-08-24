@@ -13,6 +13,9 @@
 - Staff QA Automation Engineer
 - AI Eval
 - Confidence Engineer
+- SDET
+- Test Engineer
+- “eval”, “LLM”, “red team”
 
 ## Locations
 
@@ -35,6 +38,9 @@ Remove a domain or comment it out (prefix with `#`) to stop searching it.
 - icims.com
 - weworkremotely.com
 - wellfound.com
+- remoteok.com
+- toptal.com
+- contra.com
 
 ## Query suffix
 
