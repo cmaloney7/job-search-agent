@@ -23,6 +23,7 @@
 - United States
 - San Diego CA
 - Charleston SC
+- Honolulu, HI 
 
 ## Job boards
 
