@@ -42,24 +42,13 @@ The dashboard link in the email is built at runtime from `github.repository_owne
 
 ## What it searches for
 
-**Job titles** (14):
+**Job titles** (3):
 
 - QA Engineering Manager
-- Manager Quality Engineering
-- Senior Manager Test Engineering
-- Manager Engineering QA
 - Director of Quality Engineering
-- Head of QA
-- QA Engineer III
-- Senior QA Engineer
-- Staff QA Automation Engineer
-- AI Eval
-- Confidence Engineer
-- SDET
-- Test Engineer
-- "eval", "LLM", "red team"
+- AI Evaluation
 
-**Locations** (5): Remote · United States · San Diego CA · Charleston SC · Honolulu, HI
+**Locations** (4): Remote · San Diego CA · Charleston SC · Honolulu, HI
 
 **Job boards** (11): greenhouse.io · lever.co · myworkdayjobs.com · jobs.ashbyhq.com · smartrecruiters.com · icims.com · weworkremotely.com · wellfound.com · remoteok.com · toptal.com · contra.com
 
