@@ -7,10 +7,9 @@ job search evolves. No other files need to change.
 
 ## Core positioning
 
-Greenfield QA builder with AI-native tooling expertise. Strongest fit:
-newly created QA roles or understaffed functions that need building from
-scratch, not inheriting a mature team. 15+ years in QA and Quality
-Engineering leadership across regulated industries.
+**Primary track (QA Leadership):** Greenfield QA builder with AI-native tooling expertise. Strongest fit: newly created QA roles or understaffed functions that need building from scratch, not inheriting a mature team. 15+ years in QA and Quality Engineering leadership across regulated industries.
+
+**Secondary track (AI Testing/Eval):** Currently in Break Into AI Testing coursework (Aug 2026). Hands-on experience building and running automated eval suites in Promptfoo, designing multi-layer release gates (deterministic / model-graded / adversarial red-team), and testing AI applications at the API/application layer. Seeking AI evaluation or AI quality engineering roles to apply these new skills in production settings.
 
 Current title: QA leader at Vivacity Tech PBC (April 2024 to present).
 Location: San Diego CA.
@@ -55,11 +54,15 @@ Open to: remote, Charleston, SC, San Diego, CA. Open to relocation elsewhere.
 
 ## Technical stack
 
-Primary: PromptFoo, LMStudio, Claude Code, Node.js, JavaScript, Cypress, Playwright.
-Secondary (developing): Python.
-CI/CD: GitHub Actions.
-Daily AI workflow: Claude Code, OpenAI/GPT, Gemini Gems, CodeRabbit.
-Prior: Parasoft Service Virtualization.
+**QA Leadership:** PromptFoo, LMStudio, Claude Code, Node.js, JavaScript, Cypress, Playwright.
+
+**AI Testing/Eval (new):** Promptfoo (eval design, model-graded checks, assertion thresholds, eval-compare/diff), Claude Code, GitHub Actions (CI/CD integration), black-box and red-team testing frameworks, OWASP AI risk categories, structured bug triage for AI defects.
+
+**General:** Python (developing), CI/CD: GitHub Actions.
+
+**Daily AI workflow:** Claude Code, OpenAI/GPT, Gemini Gems, CodeRabbit.
+
+**Prior:** Parasoft Service Virtualization.
 
 ---
 
@@ -87,12 +90,21 @@ These are hard stops, not fit concerns to weigh against positives.
 
 ## Strong match signals
 
+**QA Leadership track:**
 - Role is newly created or the team is being built out
 - AI-assisted testing, LLM quality, or AI-native product domain
 - Regulated or compliance-adjacent industry (not medtech)
 - Remote or West Coast based
 - Scope includes people leadership or technical lead authority
 - Comp range overlaps with $150K to $275K
+
+**AI Testing/Eval track (new):**
+- AI application testing (not just raw model evaluation)
+- Eval suite design, automation, or production deployment
+- Red-teaming, adversarial testing, or security-focused AI testing
+- Model-graded or LLM-as-judge evaluation patterns
+- Release-gating for AI systems or testing at API/application layer
+- AI quality tooling (Promptfoo, Agenta, or similar)
 
 ## Weak match signals
 
@@ -101,3 +113,4 @@ These are hard stops, not fit concerns to weigh against positives.
 - Requires hardware or IoT domain expertise
 - ERP or financial systems QA only with no AI/automation angle
 - On-site required outside Charleston or San Diego
+- Raw model evaluation only (no application-layer testing)

@@ -2,27 +2,29 @@
 
 ## Job titles to search
 
+# Manager/Director level (greenfield QA focus)
 - QA Engineering Manager
-- Manager Quality Engineering
-- Senior Manager Test Engineering
-- Manager Engineering QA
 - Director of Quality Engineering
-- Head of QA
-- QA Engineer III
-- Senior QA Engineer
-- Staff QA Automation Engineer
-- AI Eval
-- Confidence Engineer
-- SDET
-- Test Engineer
-- “eval”, “LLM”, “red team”
+
+# IC level (commented out: focus on leadership track)
+# - Senior QA Engineer
+# - Staff QA Automation Engineer
+
+# AI Testing/Eval (new track)
+- AI Evaluation
+
+# Niche titles (commented out: too specialized)
+# - Confidence Engineer
+# - SDET
+# - Test Engineer
 
 ## Locations
 
 - Remote
-- United States
+# - United States  (redundant with Remote)
 - San Diego CA
 - Charleston SC
+- Honolulu, HI 
 
 ## Job boards
 
@@ -73,7 +75,7 @@ Display on dashboard at or above: 50
 - in-vehicle testing
 - oracle jd edwards
 - hyperion epm
-- sap
+- isso
 
 ## Positive signals (count in favor)
 

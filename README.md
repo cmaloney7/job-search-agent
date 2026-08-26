@@ -42,23 +42,13 @@ The dashboard link in the email is built at runtime from `github.repository_owne
 
 ## What it searches for
 
-**Job titles** (13):
+**Job titles** (3):
 
 - QA Engineering Manager
-- Manager Quality Engineering
-- Senior Manager Test Engineering
-- Manager Engineering QA
 - Director of Quality Engineering
-- Head of QA
-- QA Engineer III
-- Senior QA Engineer
-- Staff QA Automation Engineer
-- SDET
-- Test Engineer
-- AI Eval
-- Confidence Engineer
+- AI Evaluation
 
-**Locations** (4): Remote · United States · San Diego CA · Charleston SC
+**Locations** (4): Remote · San Diego CA · Charleston SC · Honolulu, HI
 
 **Job boards** (11): greenhouse.io · lever.co · myworkdayjobs.com · jobs.ashbyhq.com · smartrecruiters.com · icims.com · weworkremotely.com · wellfound.com · remoteok.com · toptal.com · contra.com
 
@@ -77,11 +67,15 @@ The dashboard link in the email is built at runtime from `github.repository_owne
 
 ### Dependencies
 
-Installed via `pip3 install -r requirements.txt`: `anthropic`, `tavily-python`, `python-dotenv`.
+Installed via `pip3 install -r requirements.txt`:
 
 ```bash
 pip3 install -r requirements.txt
 ```
+
+- `anthropic` — Claude API client
+- `tavily-python` — Tavily search API
+- `python-dotenv` — environment variable management
 
 ### Environment variables
 
@@ -163,4 +157,4 @@ Do not edit `db.py`, `search_helper.py`, or `render.py` unless the data model or
 
 ## Cost
 
-~520 Tavily API calls/month (3 runs/week × 40 queries × 4.33 weeks). Claude scoring runs in-context — no separate API calls per posting. Estimated total: Tavily Starter plan (~$20/month) + minimal Claude token usage.
+~540 Tavily API calls/month (3 runs/week × 45 queries × 4.33 weeks). Claude scoring runs in-context — no separate API calls per posting. Estimated total: Tavily Starter plan (~$20/month) + minimal Claude token usage.
