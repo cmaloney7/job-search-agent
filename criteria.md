@@ -36,6 +36,9 @@ Restrict Tavily searches to these domains. This prevents job board category page
 (ZipRecruiter, Built In, etc.) from filling results instead of individual postings.
 Remove a domain or comment it out (prefix with `#`) to stop searching it.
 
+# - linkedin.com  (Tavily returns generic category pages, not individual postings)
+- indeed.com
+- builtin.com
 - hiringcafe.com
 - greenhouse.io
 - lever.co
