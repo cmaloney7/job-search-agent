@@ -42,15 +42,13 @@ The dashboard link in the email is built at runtime from `github.repository_owne
 
 ## What it searches for
 
-**Job titles** (3):
+**Job titles** (9):
 
-- QA Engineering Manager
-- Director of Quality Engineering
-- AI Evaluation
+Manager/Director: QA Engineering Manager, Director of Quality Engineering, Head of QA, Lead QA Engineer, Principal QA Engineer · Staff: Staff QA Engineer · AI Testing/Eval: AI Evaluation, AI Quality Engineer, Evaluation Engineer
 
-**Locations** (4): Remote · San Diego CA · Charleston SC · Honolulu, HI
+**Locations** (5): Remote · United States · San Diego CA · Charleston SC · Honolulu HI
 
-**Job boards** (11): greenhouse.io · lever.co · myworkdayjobs.com · jobs.ashbyhq.com · smartrecruiters.com · icims.com · weworkremotely.com · wellfound.com · remoteok.com · toptal.com · contra.com
+**Job boards** (12): hiringcafe.com · greenhouse.io · lever.co · myworkdayjobs.com · jobs.ashbyhq.com · smartrecruiters.com · icims.com · weworkremotely.com · wellfound.com · remoteok.com · toptal.com · contra.com
 
 **Compensation**: $150,000 floor, up to $400,000 target. Postings clearly below the floor score 0.
 
