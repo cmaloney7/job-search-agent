@@ -5,13 +5,17 @@
 # Manager/Director level (greenfield QA focus)
 - QA Engineering Manager
 - Director of Quality Engineering
+- Head of QA
+- Lead QA Engineer
+- Principal QA Engineer
 
-# IC level (commented out: focus on leadership track)
-# - Senior QA Engineer
-# - Staff QA Automation Engineer
+# Senior IC level (technical leadership without people management)
+- Staff QA Engineer
 
 # AI Testing/Eval (new track)
 - AI Evaluation
+- AI Quality Engineer
+- Evaluation Engineer
 
 # Niche titles (commented out: too specialized)
 # - Confidence Engineer
@@ -21,7 +25,7 @@
 ## Locations
 
 - Remote
-# - United States  (redundant with Remote)
+- United States
 - San Diego CA
 - Charleston SC
 - Honolulu, HI 
@@ -32,6 +36,7 @@ Restrict Tavily searches to these domains. This prevents job board category page
 (ZipRecruiter, Built In, etc.) from filling results instead of individual postings.
 Remove a domain or comment it out (prefix with `#`) to stop searching it.
 
+- hiringcafe.com
 - greenhouse.io
 - lever.co
 - myworkdayjobs.com
