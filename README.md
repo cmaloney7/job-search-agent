@@ -48,7 +48,7 @@ Manager/Director: QA Engineering Manager, Director of Quality Engineering, Head 
 
 **Locations** (5): Remote · United States · San Diego CA · Charleston SC · Honolulu HI
 
-**Job boards** (12): hiringcafe.com · greenhouse.io · lever.co · myworkdayjobs.com · jobs.ashbyhq.com · smartrecruiters.com · icims.com · weworkremotely.com · wellfound.com · remoteok.com · toptal.com · contra.com
+**Job boards** (14): indeed.com · builtin.com · hiringcafe.com · greenhouse.io · lever.co · myworkdayjobs.com · jobs.ashbyhq.com · smartrecruiters.com · icims.com · weworkremotely.com · wellfound.com · remoteok.com · toptal.com · contra.com
 
 **Compensation**: $150,000 floor, up to $400,000 target. Postings clearly below the floor score 0.
 
