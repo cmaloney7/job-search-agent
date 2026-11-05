@@ -9,9 +9,6 @@
 - Lead QA Engineer
 - Principal QA Engineer
 
-# Senior IC level (technical leadership without people management)
-- Staff QA Engineer
-
 # AI Testing/Eval (new track)
 - AI Evaluation
 - AI Quality Engineer
