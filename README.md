@@ -42,9 +42,9 @@ The dashboard link in the email is built at runtime from `github.repository_owne
 
 ## What it searches for
 
-**Job titles** (9):
+**Job titles** (8):
 
-Manager/Director: QA Engineering Manager, Director of Quality Engineering, Head of QA, Lead QA Engineer, Principal QA Engineer · Staff: Staff QA Engineer · AI Testing/Eval: AI Evaluation, AI Quality Engineer, Evaluation Engineer
+Manager/Director: QA Engineering Manager, Director of Quality Engineering, Head of QA, Lead QA Engineer, Principal QA Engineer · AI Testing/Eval: AI Evaluation, AI Quality Engineer, Evaluation Engineer
 
 **Locations** (5): Remote · United States · San Diego CA · Charleston SC · Honolulu HI
 
